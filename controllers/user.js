@@ -49,7 +49,7 @@ module.exports.loginUser = (req, res) => {
 		}
 
 		return res.status(200).send({
-			access: auth.createAccessToken(user)
+			token: auth.createAccessToken(user)
 		});
 	})
 	.catch(error => errorHandler(error, req, res));
