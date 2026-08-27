@@ -19,13 +19,8 @@ module.exports.addUserWorkout = (req, res) => {
 module.exports.getUserWorkouts = (req, res) => {
 	return Workout.find({ userId: req.user.id })
 	.then(workouts => {
-		if(workouts.length > 0) {
-			return res.status(200).send({workouts: workouts});
-		} else {
-			return res.status(404).send({
-				message: "No Workouts Found"
-			});
-		}
+		// Always return 200 OK with the array (even if empty)
+		return res.status(200).send({ workouts: workouts });
 	})
 	.catch(error => errorHandler(error, req, res));
 };
