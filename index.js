@@ -18,9 +18,9 @@ db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => console.log("We're connected to the cloudbase database"))
 
 const corsOptions = {
-    origin:['http://localhost:4000'],
+    origin:['http://localhost:4000', 'http://localhost:5173'],
     credentials: true, 
-    optionSuccessStatus: 200
+    optionsSuccessStatus: 200
 }
 
 app.use(express.json())
