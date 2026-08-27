@@ -65,18 +65,21 @@ module.exports.deleteUserWorkout = (req, res) => {
 };
 
 module.exports.updateWorkoutStatus = (req, res) => {
-	let updatedStatusField = {
-		status: "completed"
-	};
+	const newStatus = req.body.status || "completed";
+
 	return Workout.findById(req.params.workoutId)
 	.then(workout => {
 		if (workout) {
-			if (workout.status === "completed") {
+			if (workout.status === newStatus) {
 				return res.status(200).send({
-					message: "Workout is already completed"
+					message: `Workout is already ${newStatus}`
 				});
 			} else {
-				return Workout.findByIdAndUpdate(req.params.workoutId, updatedStatusField, { new: true })
+				return Workout.findByIdAndUpdate(
+					req.params.workoutId, 
+					{ status: newStatus }, 
+					{ new: true }
+				)
 				.then(result => res.status(200).send({
 					message: "Workout status updated successfully",
 					result
